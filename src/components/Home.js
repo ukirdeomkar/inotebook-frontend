@@ -1,12 +1,13 @@
 import Notes from "./Notes";
-import AddNote from "./addNote"
+import CreateNote from "./CreateNote";
+
 const Home = () => {
   return (
     <div className='container my-3'>
       <h2 className='text-center'>Add a Note</h2>
-        <AddNote/>
+      <CreateNote />
       <h2 className='text-center my-3'>Your Notes</h2>
-      <Notes/>
+      <Notes />
     </div>
   );
 };
