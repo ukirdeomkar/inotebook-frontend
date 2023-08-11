@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import NoteContext from "../context/notes/noteContext";
 import NoteItem from "./NoteItem";
+import AlertContext from "../context/notes/alertContext";
 const Notes = () => {
-  const context = useContext(NoteContext);
-  const { notes, fetchNotes, editNote } = context;
+  const context = useContext(NoteContext, AlertContext);
+  const { notes, fetchNotes, editNote  } = context;
+  const context1  = useContext(AlertContext);
+  const{showAlert} = context1;
   useEffect(() => {
     fetchNotes();
     // eslint-disable-next-line
@@ -20,16 +23,19 @@ const Notes = () => {
   };
   const updateNote = (currNote) => {
     ref.current.click();
+    
     setNote({
       id: currNote._id,
       etag: currNote.tag,
       etitle: currNote.title,
       edescription: currNote.description,
     });
+    
   };
   const handleClick = (e) => {
     refClose.current.click();
     editNote(note.id, note.etitle, note.edescription, note.etag);
+    showAlert("Note Updated Successfully" , "success");
   };
   const ref = useRef(null);
   const refClose = useRef(null);

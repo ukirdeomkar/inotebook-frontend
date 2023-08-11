@@ -8,16 +8,24 @@ import Signup from "./components/Signup";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NoteState from "./context/notes/noteState"
-import Alert from "./components/Alert";
+
+import AlertState from "./context/notes/alertState";
+import AlertBar from "./components/AlertBar";
 
 function App() {
+ 
   return (
     <>
       <NoteState>
+      <AlertState>
+       
+          
 
         <BrowserRouter>
           <NavBar />
-          <Alert message="This is Alert"/>
+          
+          <AlertBar/>
+          
           <div className="container">
           <Routes>
             <Route path='/' element={<Home />} />
@@ -27,6 +35,7 @@ function App() {
           </Routes>
           </div>
         </BrowserRouter>
+        </AlertState>
       </NoteState>
     </>
   );

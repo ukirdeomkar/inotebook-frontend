@@ -1,7 +1,10 @@
-import React , {useState} from "react";
+import React , {useState , useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import AlertContext from "../context/notes/alertContext";
 
 const Signup = () => {
+    const context1  = useContext(AlertContext);
+    const{showAlert} = context1;
     const host = process.env.REACT_APP_BACKEND_HOST_URL;
     const navigate = useNavigate();
 
@@ -26,6 +29,7 @@ const Signup = () => {
           const json = await response.json();
           console.log(json);
           if (json.success) {
+            showAlert("Signed In Successfully" , "success")
             localStorage.setItem("token", json.authToken);
             navigate("/");
           } else {
