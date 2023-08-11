@@ -2,7 +2,8 @@ import { useState } from "react";
 import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
-  const host = "http://localhost:4000";
+  // const host = "http://localhost:4000";
+  const host = process.env.REACT_APP_BACKEND_HOST_URL;
   const currNotes = [];
   const [notes, setNotes] = useState(currNotes);
   const fetchNotes = async () => {
@@ -34,17 +35,9 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
     
-    console.log( await response.json());
+    const json =  await response.json();
 
-    const note = {
-      _id: "84a53017915caa5a5738747a",
-      user: "64a3f343dab727c2ba972fc1",
-      title: title,
-      description: description,
-      tag: tag,
-      date: "2023-07-05T08:55:51.537Z",
-      __v: 0,
-    };
+    const note = json;
     setNotes(notes.concat(note));
   };
   const deleteNote = async(id) => {

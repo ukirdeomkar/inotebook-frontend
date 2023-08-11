@@ -7,7 +7,7 @@ const CreateNote = () => {
   const [note, setNote] = useState({
     title: "",
     description: "",
-    tag: "default",
+    tag: "",
   });
 
   const onChange = (e) => {
@@ -17,6 +17,11 @@ const CreateNote = () => {
   const handleClick = (e) => {
     e.preventDefault();
     addNote(note);
+    setNote({
+      title: "",
+      description: "",
+      tag: "",
+    });
   };
 
   return (
@@ -31,6 +36,9 @@ const CreateNote = () => {
           id='title'
           name='title'
           onChange={onChange}
+          minLength={5}
+          value={note.title}
+          required
         />
       </div>
       <div className='mb-3'>
@@ -43,6 +51,9 @@ const CreateNote = () => {
           id='description'
           name='description'
           onChange={onChange}
+          value={note.description}
+          minLength={5}
+          required
         />
       </div>
       <div className='mb-3'>
@@ -55,6 +66,9 @@ const CreateNote = () => {
           id='tag'
           name='tag'
           onChange={onChange}
+          value={note.tag}
+          minLength={5}
+          required
         />
       </div>
       {/* <div className='mb-3 form-check'>
@@ -67,7 +81,11 @@ const CreateNote = () => {
           Check me out
         </label>
       </div> */}
-      <button type='submit' className='btn btn-primary' onClick={handleClick}>
+      <button
+        disabled={note.title < 5 || note.description < 5}
+        type='submit'
+        className='btn btn-primary'
+        onClick={handleClick}>
         Add Note
       </button>
     </form>

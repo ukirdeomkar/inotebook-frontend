@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useRef , useState} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import NoteContext from "../context/notes/noteContext";
 import NoteItem from "./NoteItem";
 const Notes = () => {
   const context = useContext(NoteContext);
-  const { notes, fetchNotes  , editNote} = context;
+  const { notes, fetchNotes, editNote } = context;
   useEffect(() => {
     fetchNotes();
     // eslint-disable-next-line
   }, []);
   const [note, setNote] = useState({
-    id : "",
+    id: "",
     etitle: "",
     edescription: "",
     etag: "default",
@@ -20,13 +20,17 @@ const Notes = () => {
   };
   const updateNote = (currNote) => {
     ref.current.click();
-    setNote({id : currNote._id,etag : currNote.tag , etitle : currNote.title , edescription : currNote.description });
-    
+    setNote({
+      id: currNote._id,
+      etag: currNote.tag,
+      etitle: currNote.title,
+      edescription: currNote.description,
+    });
   };
   const handleClick = (e) => {
     refClose.current.click();
-    editNote(note.id ,note.etitle , note.edescription , note.etag );
-  }
+    editNote(note.id, note.etitle, note.edescription, note.etag);
+  };
   const ref = useRef(null);
   const refClose = useRef(null);
 
@@ -72,6 +76,8 @@ const Notes = () => {
                     name='etitle'
                     onChange={onChange}
                     value={note.etitle}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className='mb-3'>
@@ -85,6 +91,8 @@ const Notes = () => {
                     name='edescription'
                     onChange={onChange}
                     value={note.edescription}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className='mb-3'>
@@ -98,6 +106,8 @@ const Notes = () => {
                     name='etag'
                     onChange={onChange}
                     value={note.etag}
+                    minLength={5}
+                    required
                   />
                 </div>
               </form>
@@ -110,7 +120,11 @@ const Notes = () => {
                 data-bs-dismiss='modal'>
                 Close
               </button>
-              <button type='button'  className='btn btn-primary' onClick={handleClick}>
+              <button
+                disabled={note.etitle < 5 || note.edescription < 5}
+                type='button'
+                className='btn btn-primary'
+                onClick={handleClick}>
                 Save Changes
               </button>
             </div>
