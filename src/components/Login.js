@@ -1,11 +1,9 @@
-import React, { useState} from "react";
-import { useNavigate } from 'react-router-dom';
-
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const host = process.env.REACT_APP_BACKEND_HOST_URL;
-const navigate= useNavigate();
+  const navigate = useNavigate();
   const [cred, setCred] = useState({
     email: "",
     password: "",
@@ -22,12 +20,11 @@ const navigate= useNavigate();
 
     const json = await response.json();
     console.log(json);
-    if(json.success){
-        localStorage.setItem("token", json.authToken);
-        navigate("/");
-    }
-    else{
-        alert("invalid credentials")
+    if (json.success) {
+      localStorage.setItem("token", json.authToken);
+      navigate("/");
+    } else {
+      alert("invalid credentials");
     }
   };
   const onChange = (e) => {
@@ -44,14 +41,12 @@ const navigate= useNavigate();
             type='email'
             className='form-control'
             id='email'
-            name="email"
+            name='email'
             aria-describedby='emailHelp'
             onChange={onChange}
             value={cred.email}
           />
-          <div id='emailHelp' className='form-text'>
-            We'll never share your email with anyone else.
-          </div>
+          
         </div>
         <div className='mb-3'>
           <label htmlFor='exampleInputPassword1' className='form-label'>
@@ -61,15 +56,12 @@ const navigate= useNavigate();
             type='password'
             className='form-control'
             id='password'
-            name="password"
+            name='password'
             onChange={onChange}
             value={cred.password}
           />
         </div>
-        <button
-          type='submit'
-          className='btn btn-primary'
-          >
+        <button type='submit' className='btn btn-primary'>
           Submit
         </button>
       </form>
